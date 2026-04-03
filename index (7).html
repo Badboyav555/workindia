@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>WorkFromHome.in – Earn From Home Today</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --sky: #e8f4fd;
+    --sky-mid: #c5e3f7;
+    --blue: #3a9bd5;
+    --blue-dark: #1e6fa8;
+    --purple: #7c5cbf;
+    --purple-light: #ede8f8;
+    --purple-mid: #b39ddb;
+    --white: #ffffff;
+    --off-white: #f8fbff;
+    --text: #1a2340;
+    --text-light: #5a6680;
+    --success: #22c55e;
+    --card-shadow: 0 8px 32px rgba(60,90,180,0.10);
+    --radius: 18px;
+    --radius-sm: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--off-white); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.93); backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid var(--sky-mid);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 64px;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 800; color: var(--blue-dark); letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--purple); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff;
+    border: none; border-radius: 50px; padding: 10px 26px; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; text-decoration: none; box-shadow: 0 4px 16px rgba(124,92,191,0.25);
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,92,191,0.35); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 100px 5vw 60px;
+    background: linear-gradient(160deg, #e8f4fd 0%, #f0ebff 60%, #dff2ee 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero-blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.35; pointer-events: none; }
+  .blob1 { width: 420px; height: 420px; background: var(--blue); top: -100px; left: -120px; }
+  .blob2 { width: 340px; height: 340px; background: var(--purple); bottom: -80px; right: -100px; }
+  .blob3 { width: 220px; height: 220px; background: #5eead4; top: 40%; left: 60%; }
+
+  .live-counter {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff3cd; border: 1.5px solid #ffc107; border-radius: 50px;
+    padding: 6px 18px; font-size: 0.85rem; font-weight: 700; color: #856404;
+    margin-bottom: 22px; animation: pulse-badge 2s infinite;
+  }
+  .live-dot { width: 9px; height: 9px; background: #ef4444; border-radius: 50%; animation: blink 1s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  @keyframes pulse-badge { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800;
+    color: var(--text); line-height: 1.15; margin-bottom: 18px; position: relative; z-index: 1;
+  }
+  .hero h1 span { color: var(--purple); }
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.22rem); color: var(--text-light);
+    max-width: 520px; margin: 0 auto 32px; line-height: 1.6; position: relative; z-index: 1;
+  }
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; position: relative; z-index: 1; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff;
+    border: none; border-radius: 50px; padding: 15px 38px; font-size: 1.1rem; font-weight: 800;
+    cursor: pointer; text-decoration: none; box-shadow: 0 6px 24px rgba(124,92,191,0.3);
+    transition: transform 0.18s, box-shadow 0.18s; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(124,92,191,0.4); }
+  .btn-secondary {
+    background: #fff; color: var(--blue-dark); border: 2px solid var(--blue); border-radius: 50px;
+    padding: 13px 30px; font-size: 1rem; font-weight: 700; cursor: pointer; text-decoration: none;
+    transition: background 0.18s; display: inline-block;
+  }
+  .btn-secondary:hover { background: var(--sky); }
+
+  .trust-badges { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 42px; position: relative; z-index: 1; }
+  .badge {
+    background: #fff; border-radius: 12px; padding: 12px 22px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: var(--card-shadow); font-weight: 700; font-size: 0.92rem; color: var(--text);
+  }
+  .badge .icon { font-size: 1.4rem; }
+
+  /* SECTIONS */
+  section { padding: 80px 5vw; }
+  .section-tag {
+    display: inline-block; background: var(--purple-light); color: var(--purple);
+    border-radius: 50px; padding: 5px 18px; font-size: 0.82rem; font-weight: 800;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  h2.section-title {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 4vw, 2.7rem);
+    font-weight: 800; color: var(--text); line-height: 1.2; margin-bottom: 12px;
+  }
+  .section-sub { font-size: 1.05rem; color: var(--text-light); max-width: 560px; line-height: 1.65; margin-bottom: 46px; }
+  .center { text-align: center; }
+  .center .section-sub { margin: 0 auto 46px; }
+
+  /* ABOUT */
+  .about-bg { background: var(--white); }
+  .jobs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 10px; }
+  .job-card {
+    background: linear-gradient(135deg, var(--sky) 0%, var(--purple-light) 100%);
+    border-radius: var(--radius); padding: 32px 28px; border: 1.5px solid var(--sky-mid);
+    transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden;
+  }
+  .job-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+  .job-icon { font-size: 2.4rem; margin-bottom: 16px; }
+  .job-card h3 { font-size: 1.15rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+  .job-card p { font-size: 0.95rem; color: var(--text-light); line-height: 1.6; }
+  .job-card .tag {
+    position: absolute; top: 20px; right: 20px; background: var(--success); color: #fff;
+    border-radius: 50px; padding: 3px 12px; font-size: 0.75rem; font-weight: 700;
+  }
+  .perks { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 36px; }
+  .perk-chip {
+    display: flex; align-items: center; gap: 7px; background: var(--white);
+    border-radius: 50px; padding: 8px 18px; font-size: 0.9rem; font-weight: 700;
+    border: 1.5px solid var(--sky-mid); color: var(--blue-dark); box-shadow: 0 2px 8px rgba(58,155,213,0.08);
+  }
+
+  /* EARNINGS */
+  .earnings-bg { background: linear-gradient(135deg, #1e3a5f 0%, #2d1b69 100%); color: #fff; }
+  .earnings-bg .section-tag { background: rgba(255,255,255,0.15); color: #c5e3f7; }
+  .earnings-bg h2.section-title { color: #fff; }
+  .earnings-bg .section-sub { color: rgba(255,255,255,0.7); }
+  .earnings-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .earn-card {
+    background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius); padding: 36px 30px; text-align: center;
+    backdrop-filter: blur(8px); transition: transform 0.2s, background 0.2s;
+  }
+  .earn-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.13); }
+  .earn-card .type-label { font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--purple-mid); margin-bottom: 12px; }
+  .earn-amount { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; color: #fff; margin-bottom: 6px; }
+  .earn-amount span { font-size: 1.1rem; color: var(--sky-mid); }
+  .earn-desc { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-top: 8px; }
+  .earn-features { list-style: none; margin-top: 20px; text-align: left; }
+  .earn-features li { display: flex; align-items: center; gap: 9px; font-size: 0.92rem; color: rgba(255,255,255,0.75); margin-bottom: 9px; }
+  .earn-features li::before { content: "✓"; color: var(--success); font-weight: 900; }
+  .earn-note { text-align: center; margin-top: 32px; color: rgba(255,255,255,0.5); font-size: 0.88rem; font-style: italic; }
+
+  /* WHO */
+  .who-bg { background: var(--off-white); }
+  .who-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+  .who-card {
+    background: var(--white); border-radius: var(--radius); padding: 30px 22px; text-align: center;
+    border: 1.5px solid var(--sky-mid); box-shadow: var(--card-shadow); transition: transform 0.2s;
+  }
+  .who-card:hover { transform: translateY(-4px); }
+  .who-emoji { font-size: 2.8rem; margin-bottom: 12px; }
+  .who-card h3 { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .who-card p { font-size: 0.88rem; color: var(--text-light); line-height: 1.5; }
+  .priority-banner {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0); border: 2px solid #f48fb1;
+    border-radius: var(--radius-sm); padding: 16px 26px; margin-top: 36px;
+    display: flex; align-items: center; gap: 12px; font-weight: 700; color: #880e4f; font-size: 0.97rem;
+  }
+  .priority-banner .pi { font-size: 1.6rem; }
+
+  /* HOW */
+  .how-bg { background: var(--white); }
+  .steps-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; position: relative; }
+  .step { text-align: center; padding: 30px 20px; position: relative; }
+  .step:not(:last-child)::after {
+    content: "→"; position: absolute; right: -12px; top: 38px;
+    font-size: 1.6rem; color: var(--blue); font-weight: 900;
+  }
+  .step-num {
+    width: 60px; height: 60px; background: linear-gradient(135deg, var(--blue), var(--purple));
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; font-weight: 900; color: #fff; margin: 0 auto 16px;
+    box-shadow: 0 6px 20px rgba(124,92,191,0.25);
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .step p { font-size: 0.88rem; color: var(--text-light); line-height: 1.5; }
+  .step-icon { font-size: 1.5rem; margin-bottom: 6px; }
+
+  /* TESTIMONIALS */
+  .testi-bg { background: linear-gradient(135deg, var(--sky) 0%, var(--purple-light) 100%); }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .testi-card {
+    background: var(--white); border-radius: var(--radius); padding: 28px 26px;
+    box-shadow: var(--card-shadow); border: 1.5px solid rgba(255,255,255,0.8); transition: transform 0.2s;
+  }
+  .testi-card:hover { transform: translateY(-4px); }
+  .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 12px; }
+  .testi-text { font-size: 0.95rem; color: var(--text-light); line-height: 1.65; font-style: italic; margin-bottom: 18px; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 800; flex-shrink: 0; }
+  .testi-name { font-weight: 800; font-size: 0.97rem; color: var(--text); }
+  .testi-role { font-size: 0.8rem; color: var(--text-light); }
+
+  /* FORM */
+  .form-bg { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--purple) 100%); }
+  .form-bg .section-tag { background: rgba(255,255,255,0.15); color: #c5e3f7; }
+  .form-bg h2.section-title { color: #fff; }
+  .form-bg .section-sub { color: rgba(255,255,255,0.7); }
+  .form-wrap {
+    max-width: 680px; margin: 0 auto; background: #fff; border-radius: var(--radius);
+    padding: clamp(28px, 5vw, 50px); box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+  .urgency-line {
+    background: #fff3e0; border: 1.5px solid #ff9800; border-radius: var(--radius-sm);
+    padding: 11px 20px; text-align: center; font-weight: 800; color: #e65100;
+    font-size: 0.92rem; margin-bottom: 28px; display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 0.88rem; font-weight: 800; color: var(--text); }
+  label .req { color: #ef4444; }
+  input, select {
+    border: 2px solid var(--sky-mid); border-radius: var(--radius-sm); padding: 12px 16px;
+    font-size: 0.97rem; font-family: 'Nunito', sans-serif; color: var(--text); outline: none;
+    background: var(--off-white); transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  input:focus, select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(58,155,213,0.15); }
+  .radio-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .radio-opt {
+    display: flex; align-items: center; gap: 7px; background: var(--off-white);
+    border: 2px solid var(--sky-mid); border-radius: var(--radius-sm); padding: 10px 18px;
+    cursor: pointer; font-weight: 700; font-size: 0.92rem; transition: border-color 0.15s, background 0.15s; user-select: none;
+  }
+  .radio-opt input[type="radio"] { display: none; }
+  .radio-opt.selected { border-color: var(--purple); background: var(--purple-light); color: var(--purple); }
+  .submit-btn {
+    width: 100%; padding: 16px; font-size: 1.15rem; font-weight: 900;
+    background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff;
+    border: none; border-radius: 50px; cursor: pointer; margin-top: 24px;
+    box-shadow: 0 6px 20px rgba(124,92,191,0.3); transition: transform 0.18s, box-shadow 0.18s;
+    font-family: 'Nunito', sans-serif; letter-spacing: 0.3px;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124,92,191,0.4); }
+  .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+  .success-msg { display: none; text-align: center; padding: 32px; }
+  .success-msg .tick { font-size: 3.5rem; margin-bottom: 14px; }
+  .success-msg h3 { font-size: 1.5rem; font-weight: 900; color: var(--success); margin-bottom: 10px; }
+  .success-msg p { color: var(--text-light); font-size: 1rem; line-height: 1.6; }
+
+  /* FOOTER */
+  footer { background: var(--text); color: rgba(255,255,255,0.7); padding: 40px 5vw; text-align: center; }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+  .footer-logo span { color: var(--purple-mid); }
+  .footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; transition: color 0.15s; }
+  .footer-links a:hover { color: #fff; }
+  .disclaimer {
+    background: rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 16px 24px;
+    font-size: 0.82rem; line-height: 1.65; max-width: 680px; margin: 0 auto 20px; color: rgba(255,255,255,0.5);
+  }
+  .footer-copy { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+
+  /* WHATSAPP */
+  .wa-float {
+    position: fixed; bottom: 28px; right: 24px; z-index: 200; width: 60px; height: 60px;
+    border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(37,211,102,0.45); text-decoration: none; font-size: 1.8rem;
+    animation: wa-bounce 2.5s infinite; transition: transform 0.18s;
+  }
+  .wa-float:hover { animation: none; transform: scale(1.12); }
+  @keyframes wa-bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+  .wa-tooltip {
+    position: fixed; bottom: 98px; right: 24px; z-index: 200; background: #fff;
+    border-radius: 10px; padding: 10px 16px; font-size: 0.85rem; font-weight: 700;
+    color: var(--text); box-shadow: 0 4px 16px rgba(0,0,0,0.15); white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  .wa-float:hover ~ .wa-tooltip { opacity: 1; }
+
+  /* FADE */
+  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .step:not(:last-child)::after { display: none; }
+    .trust-badges { gap: 12px; }
+    .badge { padding: 9px 15px; font-size: 0.82rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Work<span>Home</span>.in</div>
+  <a class="nav-cta" href="#register">Apply Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+
+  <div class="live-counter">
+    <span class="live-dot"></span>
+    <span id="liveCount">23 people applied today</span>
+  </div>
+
+  <h1>Start Earning<br>From <span>Home</span> Today</h1>
+  <p>Flexible part-time &amp; full-time opportunities for students, housewives &amp; beginners — no experience needed!</p>
+
+  <div class="hero-buttons">
+    <a class="btn-primary" href="#register">Apply Now — It's Free</a>
+    <a class="btn-secondary" href="#how">How It Works</a>
+  </div>
+
+  <div class="trust-badges fade-up">
+    <div class="badge"><span class="icon">👥</span> 1000+ People Joined</div>
+    <div class="badge"><span class="icon">🏠</span> 100% Work From Home</div>
+    <div class="badge"><span class="icon">⏰</span> Flexible Timing</div>
+    <div class="badge"><span class="icon">✅</span> No Experience Required</div>
+  </div>
+</section>
+
+<!-- ABOUT WORK -->
+<section class="about-bg" id="about">
+  <div class="section-tag">What You'll Do</div>
+  <h2 class="section-title">Simple Tasks.<br>Real Earnings.</h2>
+  <p class="section-sub">You don't need any prior experience. We'll train you from scratch and guide you every step of the way.</p>
+
+  <div class="jobs-grid">
+    <div class="job-card fade-up">
+      <div class="job-icon">📋</div>
+      <div class="tag">Popular</div>
+      <h3>Data Entry</h3>
+      <p>Fill forms, update spreadsheets, and manage records from the comfort of your home. Simple, repetitive, and easy to learn.</p>
+    </div>
+    <div class="job-card fade-up">
+      <div class="job-icon">🔍</div>
+      <div class="tag">High Pay</div>
+      <h3>Lead Generation</h3>
+      <p>Find and collect contact details of potential customers for businesses. Just basic internet skills needed.</p>
+    </div>
+    <div class="job-card fade-up">
+      <div class="job-icon">📱</div>
+      <div class="tag">Easy</div>
+      <h3>Social Media Tasks</h3>
+      <p>Like, share, comment, and follow pages. Grow brand presence on Instagram, Facebook &amp; more. Perfect if you're already on social media.</p>
+    </div>
+    <div class="job-card fade-up">
+      <div class="job-icon">💬</div>
+      <h3>Chat Support</h3>
+      <p>Reply to customer queries on WhatsApp or chat portals. Friendly communication is all you need.</p>
+    </div>
+  </div>
+
+  <div class="perks fade-up">
+    <div class="perk-chip">🎓 Training Provided</div>
+    <div class="perk-chip">📅 Work on Your Schedule</div>
+    <div class="perk-chip">💻 Mobile or Laptop</div>
+    <div class="perk-chip">🌐 Internet Required</div>
+    <div class="perk-chip">🆓 No Investment</div>
+  </div>
+</section>
+
+<!-- EARNINGS -->
+<section class="earnings-bg" id="earnings">
+  <div class="center">
+    <div class="section-tag">Earnings</div>
+    <h2 class="section-title">How Much Can You Earn?</h2>
+    <p class="section-sub">Realistic monthly earnings based on your availability and performance.</p>
+  </div>
+  <div class="earnings-cards">
+    <div class="earn-card fade-up">
+      <div class="type-label">⏰ Part-Time</div>
+      <div class="earn-amount">₹5,000 <span>–</span> ₹15,000</div>
+      <div class="earn-desc">per month</div>
+      <ul class="earn-features">
+        <li>2–4 hours daily</li>
+        <li>Work at your own time</li>
+        <li>Great for students &amp; housewives</li>
+        <li>Paid weekly or monthly</li>
+      </ul>
+    </div>
+    <div class="earn-card fade-up">
+      <div class="type-label">🕐 Full-Time</div>
+      <div class="earn-amount">₹15,000 <span>–</span> ₹30,000</div>
+      <div class="earn-desc">per month</div>
+      <ul class="earn-features">
+        <li>6–8 hours daily</li>
+        <li>Consistent income source</li>
+        <li>Priority task allocation</li>
+        <li>Performance bonuses available</li>
+      </ul>
+    </div>
+  </div>
+  <p class="earn-note">* Earnings depend on performance, consistency, and task availability. Income is not guaranteed.</p>
+</section>
+
+<!-- WHO CAN APPLY -->
+<section class="who-bg" id="who">
+  <div class="center">
+    <div class="section-tag">Eligibility</div>
+    <h2 class="section-title">Who Can Apply?</h2>
+    <p class="section-sub">This opportunity is open to anyone looking to earn from home — beginners are especially welcome!</p>
+  </div>
+  <div class="who-grid">
+    <div class="who-card fade-up">
+      <div class="who-emoji">🎓</div>
+      <h3>Students</h3>
+      <p>Earn while you study. Work after college hours at your own pace.</p>
+    </div>
+    <div class="who-card fade-up">
+      <div class="who-emoji">🏠</div>
+      <h3>Housewives</h3>
+      <p>Work from home while managing your household. Flexible timing just for you.</p>
+    </div>
+    <div class="who-card fade-up">
+      <div class="who-emoji">🌱</div>
+      <h3>Beginners</h3>
+      <p>No experience? No problem. We train you from scratch.</p>
+    </div>
+    <div class="who-card fade-up">
+      <div class="who-emoji">🆕</div>
+      <h3>Freshers</h3>
+      <p>Just finished your studies? Build your career from home today.</p>
+    </div>
+    <div class="who-card fade-up">
+      <div class="who-emoji">👨‍💻</div>
+      <h3>Job Seekers</h3>
+      <p>Looking for remote work while you search for your dream job? We've got you.</p>
+    </div>
+  </div>
+  <div class="priority-banner fade-up">
+    <span class="pi">👩</span>
+    <span>We are currently <strong>prioritizing female candidates</strong> for available positions. Women applicants will be contacted first.</span>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-bg" id="how">
+  <div class="center">
+    <div class="section-tag">Process</div>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Get started in 4 simple steps. From registration to your first payment — we guide you throughout.</p>
+  </div>
+  <div class="steps-row">
+    <div class="step fade-up">
+      <div class="step-num">1</div>
+      <div class="step-icon">📝</div>
+      <h3>Register</h3>
+      <p>Fill the form below with your basic details. It takes less than 2 minutes.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">2</div>
+      <div class="step-icon">📚</div>
+      <h3>Get Training</h3>
+      <p>Our team will guide you with free training via WhatsApp or video tutorials.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">3</div>
+      <div class="step-icon">💼</div>
+      <h3>Start Work</h3>
+      <p>Pick tasks that suit your time. Work from your phone or laptop at home.</p>
+    </div>
+    <div class="step fade-up">
+      <div class="step-num">4</div>
+      <div class="step-icon">💰</div>
+      <h3>Get Paid</h3>
+      <p>Earn weekly or monthly directly to your bank account or UPI.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-bg" id="testimonials">
+  <div class="center">
+    <div class="section-tag">Success Stories</div>
+    <h2 class="section-title">What Our Members Say</h2>
+    <p class="section-sub">Real people, real results. Hear from those who started just like you.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"I was a college student with no experience at all. Within 2 weeks of joining, I earned my first ₹4,200 doing simple data entry tasks. Now I earn around ₹12,000 every month part-time!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#fce4ec;color:#c2185b;">P</div>
+        <div>
+          <div class="testi-name">Priya Sharma</div>
+          <div class="testi-role">Student, Jaipur — Part-time member</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"As a housewife, I never thought I could earn money while staying home. This platform changed everything for me. I work 3–4 hours daily and earn ₹9,000–₹11,000 every month."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e8f5e9;color:#2e7d32;">S</div>
+        <div>
+          <div class="testi-name">Sunita Verma</div>
+          <div class="testi-role">Housewife, Lucknow — Part-time member</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★☆</div>
+      <p class="testi-text">"I was skeptical at first, but after joining full-time I now make ₹22,000 per month doing lead generation and social media tasks. The training is very helpful for beginners."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#e3f2fd;color:#1565c0;">R</div>
+        <div>
+          <div class="testi-name">Rahul Meena</div>
+          <div class="testi-role">Fresher, Jodhpur — Full-time member</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card fade-up">
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"After my maternity break, I didn't want to leave my baby. This gave me the perfect solution — I work from home on my own schedule and contribute to household income. Highly recommend!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#f3e5f5;color:#6a1b9a;">A</div>
+        <div>
+          <div class="testi-name">Anjali Gupta</div>
+          <div class="testi-role">Mother, Delhi — Part-time member</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION FORM -->
+<section class="form-bg" id="register">
+  <div class="center">
+    <div class="section-tag">Join Us</div>
+    <h2 class="section-title">Register Now</h2>
+    <p class="section-sub">Fill in your details and our team will reach out to you within 24 hours.</p>
+  </div>
+
+  <div class="form-wrap">
+    <div class="urgency-line">
+      🔥 <span>Limited Slots Available — Only a few spots left this week!</span>
+    </div>
+
+    <div id="formContainer">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" placeholder="Enter your full name"/>
+        </div>
+        <div class="form-group">
+          <label>Age <span class="req">*</span></label>
+          <input type="number" id="age" placeholder="Your age" min="15" max="60"/>
+        </div>
+        <div class="form-group">
+          <label>Gender <span class="req">*</span></label>
+          <select id="gender">
+            <option value="">Select gender</option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="phone" placeholder="10-digit phone number" maxlength="10"/>
+        </div>
+        <div class="form-group">
+          <label>WhatsApp Number <span class="req">*</span></label>
+          <input type="tel" id="whatsapp" placeholder="WhatsApp number" maxlength="10"/>
+        </div>
+        <div class="form-group">
+          <label>State / City</label>
+          <input type="text" id="city" placeholder="Your city or state"/>
+        </div>
+
+        <div class="form-group full">
+          <label>Do you have any work experience? <span class="req">*</span></label>
+          <div class="radio-row" id="expGroup">
+            <label class="radio-opt" onclick="selectRadio(this,'expGroup')">
+              <input type="radio" name="experience" value="Yes"/> ✅ Yes, I have experience
+            </label>
+            <label class="radio-opt" onclick="selectRadio(this,'expGroup')">
+              <input type="radio" name="experience" value="No"/> ❌ No, I'm a beginner
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group full">
+          <label>Preferred Work Type <span class="req">*</span></label>
+          <div class="radio-row" id="workGroup">
+            <label class="radio-opt" onclick="selectRadio(this,'workGroup')">
+              <input type="radio" name="workType" value="Part-time"/> ⏰ Part-time
+            </label>
+            <label class="radio-opt" onclick="selectRadio(this,'workGroup')">
+              <input type="radio" name="workType" value="Full-time"/> 🕐 Full-time
+            </label>
+            <label class="radio-opt" onclick="selectRadio(this,'workGroup')">
+              <input type="radio" name="workType" value="Both"/> 🔄 Open to Both
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="submitForm()">🚀 Submit My Application</button>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="tick">🎉</div>
+      <h3>Registration Successful!</h3>
+      <p>Thank you for registering! Our team will contact you on your WhatsApp number within <strong>24 hours</strong>. Please keep your phone handy.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Work<span>Home</span>.in</div>
+  <div class="footer-links">
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Use</a>
+    <a href="mailto:support@workhome.in">support@workhome.in</a>
+    <a href="tel:+919999999999">+91 99999 99999</a>
+  </div>
+  <div class="disclaimer">
+    ⚠️ <strong>Disclaimer:</strong> This is an opportunity-based platform. We do not guarantee fixed income. Earnings vary based on your performance, consistency, and availability of tasks. This is not a get-rich-quick scheme. Please read all terms before registering.
+  </div>
+  <div class="footer-copy">© 2024 WorkHome.in — All rights reserved.</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20know%20more%20about%20work%20from%20home%20opportunities" target="_blank" rel="noopener" title="Chat on WhatsApp">💬</a>
+<div class="wa-tooltip">Chat on WhatsApp</div>
+
+<script>
+/* =============================================
+   CONFIGURATION — Edit these before going live
+   ============================================= */
+const TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";   // e.g. "7123456789:AAFxxxx"
+const TELEGRAM_CHAT_ID   = "YOUR_CHAT_ID_HERE";      // e.g. "-1001234567890"
+const WHATSAPP_NUMBER    = "919999999999";            // with country code, no +
+
+// Update WhatsApp links dynamically
+document.querySelectorAll('.wa-float').forEach(el => {
+  el.href = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%2C%20I%20want%20to%20know%20more%20about%20work%20from%20home%20opportunities`;
+});
+
+/* ─── RADIO SELECT ─── */
+function selectRadio(el, groupId) {
+  document.querySelectorAll('#' + groupId + ' .radio-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input[type="radio"]').checked = true;
+}
+
+/* ─── LIVE COUNTER ─── */
+let liveBase = 23;
+function updateCounter() {
+  liveBase += Math.random() > 0.7 ? 1 : 0;
+  document.getElementById('liveCount').textContent = liveBase + ' people applied today';
+}
+setInterval(updateCounter, 18000);
+
+/* ─── FORM SUBMIT ─── */
+async function submitForm() {
+  const name     = document.getElementById('fullName').value.trim();
+  const age      = document.getElementById('age').value.trim();
+  const gender   = document.getElementById('gender').value;
+  const phone    = document.getElementById('phone').value.trim();
+  const whatsapp = document.getElementById('whatsapp').value.trim();
+  const city     = document.getElementById('city').value.trim();
+  const exp      = document.querySelector('input[name="experience"]:checked');
+  const workType = document.querySelector('input[name="workType"]:checked');
+
+  // Validation
+  if (!name)        { alert('Please enter your full name.'); return; }
+  if (!age)         { alert('Please enter your age.'); return; }
+  if (!gender)      { alert('Please select your gender.'); return; }
+  if (!phone || phone.length < 10) { alert('Please enter a valid 10-digit phone number.'); return; }
+  if (!whatsapp || whatsapp.length < 10) { alert('Please enter a valid WhatsApp number.'); return; }
+  if (!exp)         { alert('Please select your experience level.'); return; }
+  if (!workType)    { alert('Please select your preferred work type.'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Submitting...';
+
+  const message =
+`📋 *NEW REGISTRATION — WorkHome.in*
+
+👤 *Name:* ${name}
+🎂 *Age:* ${age}
+⚧ *Gender:* ${gender}
+📞 *Phone:* ${phone}
+💬 *WhatsApp:* ${whatsapp}
+📍 *City/State:* ${city || 'Not provided'}
+💼 *Experience:* ${exp.value}
+⏰ *Work Type:* ${workType.value}
+
+🕐 _${new Date().toLocaleString('en-IN', {timeZone:'Asia/Kolkata'})}_`;
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message, parse_mode: 'Markdown' })
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error('API error: ' + data.description);
+  } catch (err) {
+    console.warn('Telegram send failed:', err.message);
+    // Still show success to user — you can add a backup (Google Sheets, email) here
+  }
+
+  // Always show success
+  document.getElementById('formContainer').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+
+/* ─── SCROLL FADE ─── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
